@@ -7,7 +7,7 @@ from tkinter import filedialog
 
 # Funció per convertir text a veu i desar-lo en un fitxer MP3
 def convertir_a_veu():
-    if texto := texto_entrada.get():
+    if texto := text_widget.get("1.0", "end-1c"):
         try:
             tts = gTTS(texto, lang='ca')
             if ruta_desti := filedialog.asksaveasfilename(
@@ -28,17 +28,22 @@ def convertir_a_veu():
 finestra = tk.Tk()
 finestra.title("Convertir Text a Veu")
 
+# Ampliar la finestra i ajustar els marges del Text Widget
+finestra.geometry("800x600")
+
 # Crear una etiqueta
 etiqueta = ttk.Label(finestra, text="Introdueix el text:")
 etiqueta.pack(pady=10)
 
 # Crear una caixa d'entrada de text
-texto_entrada = ttk.Entry(finestra, width=40)
-texto_entrada.pack(pady=10)
+text_widget = tk.Text(finestra, width=80, height=40, padx=10, pady=10)
+text_widget.pack(pady=10)
+#text_entrada = ttk.Entry(finestra, width=80)
+#text_entrada.pack(pady=10)
 
 # Crear un botó per iniciar la conversió
-boton_convertir = ttk.Button(finestra, text="Convertir a Veu", command=convertir_a_veu)
-boton_convertir.pack(pady=10)
+boto_convertir = ttk.Button(finestra, text="Convertir a Veu", command=convertir_a_veu)
+boto_convertir.pack(pady=10)
 
 # Iniciar el bucle principal de l'aplicació
 finestra.mainloop()
